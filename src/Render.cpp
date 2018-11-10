@@ -35,7 +35,6 @@ void CApp::onRender()
             r = {CELL_WIDTH * x, CELL_HEIGHT * y, CELL_WIDTH, CELL_HEIGHT};
             SDL_RenderFillRect(renderer, &r);
         }
-        printf("\n");
     }
     
     drawGrid();

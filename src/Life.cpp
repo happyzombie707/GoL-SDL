@@ -7,8 +7,7 @@
 */
 int getIntField(lua_State* L, const char* key)
 {
-    lua_pushstring(L, key);
-    lua_gettable(L, -2);  // get table[key]
+    lua_getglobal(L, key);
  
     int result = (int)lua_tonumber(L, -1);
     lua_pop(L, 1);  // remove number from stack
@@ -17,71 +16,56 @@ int getIntField(lua_State* L, const char* key)
  
 std::string getStringField(lua_State* L, const char* key)
 {
-    lua_pushstring(L, key);
-    lua_gettable(L, -2);  // get table[key]
+    lua_getglobal(L, key);
  
     std::string result = lua_tostring(L, -1);
     lua_pop(L, 1);  // remove string from stack
     return result;
 }
 
+//returns the global colour table defined in the lua file
+/* e.g. 
+colors = {
+    {255, 0, 0},
+    {0, 255, 0},
+    {0, 0, 255},
+}
+*/
 std::vector<std::array<int,3>> getColors(lua_State* L, const std::string& name) {
     std::vector<std::array<int,3>> v;
 
+    //get table
     lua_getglobal(L, "colors");
     if(lua_isnil(L, -1)) {
-        printf("henlo\n");
         return v;
     }
-        printf("meep\n");
-
+    //holders for rgb value
     int r, g, b;
 
-    printf("hahhhaaa %d\n", lua_istable(L, -2));
-
-    /*lua_pushnil(L);
-    while(lua_next(L, -2))
-    {   
-        printf("a");
-        lua_pushnil(L);
-        printf("y");
-//        while(lua_next(L, -2)) {
-        r = lua_tonumber(L, -1); lua_pop(L,1);
-        printf("y");
-
-        g = lua_tonumber(L, -1); lua_pop(L,1);
-        printf("l");
-        b = lua_tonumber(L, -1); lua_pop(L,1);
-        printf("m");
-        v.push_back({r, g, b});
-        printf("a");
-  //      }
-        lua_pop(L, 1);
-        printf("o\n");
-    }*/
-
+    //set up stack 
     lua_pushnil(L);
 
+    //for each colour
     while (lua_next(L, -2))
     {
     
-    lua_pushnil(L);
+        lua_pushnil(L);
     
-    //while(lua_next(L, -2)){
-    lua_next(L, -2);
-    r = (int)lua_tonumber(L, -1);
-    lua_pop(L, 1);
+        //read rgb values
+        lua_next(L, -2);
+        r = (int)lua_tonumber(L, -1);
+        lua_pop(L, 1);
     
-    lua_next(L, -2);
-    g = (int)lua_tonumber(L, -1);
-    lua_pop(L, 1);
+        lua_next(L, -2);
+        g = (int)lua_tonumber(L, -1);
+        lua_pop(L, 1);
     
-    lua_next(L, -2);
-    b = (int)lua_tonumber(L, -1);
-    lua_pop(L, 1);
-    
-    v.push_back({r, g, b});
-    lua_pop(L, 2);
+        lua_next(L, -2);
+        b = (int)lua_tonumber(L, -1);
+        lua_pop(L, 1);
+        //push to vector
+        v.push_back({r, g, b});
+        lua_pop(L, 2);
     }
     
 
@@ -150,8 +134,7 @@ void Life::iterate()
         lua_rawseti(L, -2, x + 1); // RT[j] = CT
     }
 
-    lua_setglobal(L, "grid");
-    if(lua_pcall(L, 0, 1, 0))
+    if(lua_pcall(L, 1, 1, 0))
     {
         printf("%s\n", lua_tostring(L, -1));
     }

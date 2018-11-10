@@ -12,14 +12,14 @@ COMPILER_FLAGS = -w -ggdb
 LINKER_FLAGS = -lSDL2 -lSDL2_image -llua
 
 #OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = GoL
+OBJ_NAME = GoL.out
 
 run: all
-	./GoL
+	./GoL.out
 
 #This is the target that compiles our executable
 all : $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
 clean:
-	rm GoL
+	rm GoL.out
