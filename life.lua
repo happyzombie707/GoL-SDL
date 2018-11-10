@@ -61,5 +61,6 @@ function iterate(grid)
             updateGrid[x][y] = calculateState(grid, x, y)
         end
     end
-    return updateGrid
+
+    return updateGrid --iterate must return a new grid of the same size as the original
 end
