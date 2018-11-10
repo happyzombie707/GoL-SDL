@@ -1,4 +1,4 @@
-#include "CApp.hpp"
+#include "GoL.hpp"
 
 bool CApp::isAlive(int x, int y)
 {

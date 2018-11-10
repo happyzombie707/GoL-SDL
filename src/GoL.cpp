@@ -6,10 +6,10 @@
 //  Copyright © 2018 Richard. All rights reserved.
 //
 
-#include "CApp.hpp"
+#include "GoL.hpp"
 #include <thread>
-#include "UI.hpp"
-#include "Window.h"
+//include "UI.hpp"
+//#include "Window.h"
 
 CApp::CApp() {
     running = true;
@@ -29,7 +29,7 @@ int CApp::OnExecute()
    // }
     
     
-    //pngSurface = loadSurface("meme.png");
+    /*pngSurface = loadSurface("meme.png");
     
     
     Window w = Window(10, 10, 100, 100);
@@ -58,7 +58,7 @@ int CApp::OnExecute()
     //ui.addControl(&w3);
     //ui.addControl(&w4);
     //ui.addControl(&w5);
-
+    */
     
     while(running)
     {

@@ -3,7 +3,7 @@ and may not be redistributed without written permission.*/
 
 //Using SDL, SDL_image, standard IO, and strings
 
-#include "CApp.hpp"
+#include "GoL.hpp"
 
 
 

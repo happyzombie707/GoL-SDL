@@ -6,7 +6,7 @@
 //  Copyright © 2018 Richard. All rights reserved.
 //
 
-#include "CApp.hpp"
+#include "GoL.hpp"
 
 void CApp::onCleanup()
 {

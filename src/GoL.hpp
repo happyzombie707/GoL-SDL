@@ -10,15 +10,14 @@
 #define CApp_hpp
 
 #include "Life.hpp"
-#include "UI.hpp"
+//#include "UI.hpp"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
 #include <thread>
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
-
+#include <SDL2/SDL_image.h>
 class CApp
 {
     
@@ -62,7 +61,7 @@ private:
     
     Uint32 frameStart;
     int frameTime;
-    Life gol = Life(66, 35);
+    Life gol = Life(67, 35, "/home/richard/Documents/prog/C++/GoL/GoL-SDL/life.lua");
 
     int CELL_HEIGHT = 20;
     int CELL_WIDTH = 20;

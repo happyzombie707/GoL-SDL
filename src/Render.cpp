@@ -1,5 +1,5 @@
 
-#include "CApp.hpp"
+#include "GoL.hpp"
 
 SDL_Rect r;
 

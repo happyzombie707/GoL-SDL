@@ -6,14 +6,14 @@
 //  Copyright © 2018 Richard. All rights reserved.
 //
 
-#include "CApp.hpp"
+#include "GoL.hpp"
 
 void CApp::toggleGrid(int x, int y)
 {
     bool t = gol.grid[x][y];
     
     printf("%d\n", t);
-    gol.grid[x][y] = !t;
+    gol.grid[x][y] = true;
     onRender();
 }
 
@@ -35,7 +35,7 @@ void CApp::handleMouseDown(SDL_Event e)
     currentDrawX = (x + viewport.x) / CELL_WIDTH;
     currentDrawY = (y + viewport.y) / CELL_HEIGHT;
     
-    drawType = e.button.button == SDL_BUTTON_LEFT;
+    drawType = e.button.button == SDL_BUTTON_LEFT ? true : false;
     printf("%d\n", drawType);
     gol.grid[currentDrawX][currentDrawY] = drawType;
 
