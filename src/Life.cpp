@@ -1,5 +1,10 @@
 #include "Life.hpp"
 #include <iostream>
+
+
+/*
+    UTILITY FUNCTIONS
+*/
 int getIntField(lua_State* L, const char* key)
 {
     lua_pushstring(L, key);
@@ -20,18 +25,85 @@ std::string getStringField(lua_State* L, const char* key)
     return result;
 }
 
+std::vector<std::array<int,3>> getColors(lua_State* L, const std::string& name) {
+    std::vector<std::array<int,3>> v;
+
+    lua_getglobal(L, "colors");
+    if(lua_isnil(L, -1)) {
+        printf("henlo\n");
+        return v;
+    }
+        printf("meep\n");
+
+    int r, g, b;
+
+    printf("hahhhaaa %d\n", lua_istable(L, -2));
+
+    /*lua_pushnil(L);
+    while(lua_next(L, -2))
+    {   
+        printf("a");
+        lua_pushnil(L);
+        printf("y");
+//        while(lua_next(L, -2)) {
+        r = lua_tonumber(L, -1); lua_pop(L,1);
+        printf("y");
+
+        g = lua_tonumber(L, -1); lua_pop(L,1);
+        printf("l");
+        b = lua_tonumber(L, -1); lua_pop(L,1);
+        printf("m");
+        v.push_back({r, g, b});
+        printf("a");
+  //      }
+        lua_pop(L, 1);
+        printf("o\n");
+    }*/
+
+    lua_pushnil(L);
+
+    while (lua_next(L, -2))
+    {
+    
+    lua_pushnil(L);
+    
+    //while(lua_next(L, -2)){
+    lua_next(L, -2);
+    r = (int)lua_tonumber(L, -1);
+    lua_pop(L, 1);
+    
+    lua_next(L, -2);
+    g = (int)lua_tonumber(L, -1);
+    lua_pop(L, 1);
+    
+    lua_next(L, -2);
+    b = (int)lua_tonumber(L, -1);
+    lua_pop(L, 1);
+    
+    v.push_back({r, g, b});
+    lua_pop(L, 2);
+    }
+    
+
+    return v;
+}
+
+
+/*
+    LIFE CLASS
+*/
 Life::Life(int w, int h)
 {
     width = w; height = h;
-    grid.resize(width, std::vector<bool>(height, false));
-    updateGrid.resize(width, std::vector<bool>(height, false));
+    grid.resize(width, std::vector<int>(height, 0));
+    updateGrid.resize(width, std::vector<int>(height, 0));
 }
 
 Life::Life(int w, int h, char * luapath)
 {
     width = w; height = h;
-    grid.resize(width, std::vector<bool>(height, false));
-    updateGrid.resize(width, std::vector<bool>(height, false));
+    grid.resize(width, std::vector<int>(height, 0));
+    updateGrid.resize(width, std::vector<int>(height, 0));
     
     L = luaL_newstate();
     luaL_openlibs(L);
@@ -44,12 +116,7 @@ Life::Life(int w, int h, char * luapath)
     int meep = getIntField(L, "meep");
 
     std::cout << "Loaded: " << name << " " << meep << "\n";
-
-}
-
-void Life::luaTest()
-{
-
+    stateColors = getColors(L, "colors");
 
 }
 
@@ -57,43 +124,9 @@ void Life::luaTest()
 void Life::clear()
 {
     grid.clear();
-    grid.resize(width, std::vector<bool>(height, false));
+    grid.resize(width, std::vector<int>(height, 0));
 }
 
-bool Life::isAlive(int x, int y)
-{
-    x = (x + width) % width;
-    y = (y + height) % height;
-    
-    return grid[x][y];
-}
-
-bool Life::calculateState(int x, int y)
-{
-    int alive = 0;
-    
-    for (int i = -1; i <= 1; i++)
-    {
-        for (int j = -1; j <= 1; j++)
-        {
-            if ((i || j) && isAlive(x+i, y+j))
-            {
-                alive++;
-            }
-        }
-    }
-    
-
-    if (alive == 2) return grid[x][y];
-    if (alive == 3) return true;
-    
-    return false;
-}
-
-void Life::setCell(int x, int y, bool val)
-{
-    grid[x][y] = val;
-}
 
 void Life::iterate()
 {
@@ -120,7 +153,7 @@ void Life::iterate()
     lua_setglobal(L, "grid");
     if(lua_pcall(L, 0, 1, 0))
     {
-        printf("%s", lua_tostring(L, -1));
+        printf("%s\n", lua_tostring(L, -1));
     }
     
     lua_pushnil(L);
@@ -142,6 +175,6 @@ void Life::iterate()
     }
     
     grid = updateGrid;
-    updateGrid.resize(width, std::vector<bool>(height, false));
+    updateGrid.resize(width, std::vector<int>(height, 0));
 
 }

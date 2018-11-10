@@ -1,9 +1,15 @@
 local life = {
     name = "Conway's Game of Life",
     meep = 69,
+
 }
 
-width =0
+colors = {
+    {255,0,20},
+    {100,255,0},
+}
+
+width = 0
 height = 0
 
 function isAlive(x, y)
@@ -26,8 +32,8 @@ function calculateState(x, y)
         end
     end
 
-    if alive == 2 then return grid[x][y] end
-    if alive == 3 then return 1 end
+    if alive == 0 then return grid[x][y] end
+    if alive == 1 then return 1 end
     
     return 0
 
@@ -55,8 +61,8 @@ function iterate()
     return updateGrid
 end
 
-
 return life
+
 
 
 --[[

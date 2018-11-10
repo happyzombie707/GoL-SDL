@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
-#include <thread>
+//#include <thread>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 class CApp

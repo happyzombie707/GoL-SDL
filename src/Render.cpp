@@ -2,6 +2,7 @@
 #include "GoL.hpp"
 
 SDL_Rect r;
+std::array<int, 3> color;
 
 void CApp::drawGrid()
 {
@@ -28,16 +29,13 @@ void CApp::onRender()
     {
         for(int x = 0; x < gol.width; x++)
         {
-            if(gol.grid[x][y])
-            {
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-            }else{
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-            }
-            
+            color = gol.stateColors[gol.grid[x][y]];
+            SDL_SetRenderDrawColor(renderer, color[0], color[1], color[2], 255);
+
             r = {CELL_WIDTH * x, CELL_HEIGHT * y, CELL_WIDTH, CELL_HEIGHT};
             SDL_RenderFillRect(renderer, &r);
         }
+        printf("\n");
     }
     
     drawGrid();
