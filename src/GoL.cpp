@@ -16,13 +16,15 @@ CApp::CApp() {
     paused = true;
 }
 
-int CApp::OnExecute()
+int CApp::OnExecute(char *luafile)
 {
     if(!onInit())
     {
         return -1;
     }
     
+    gol = Life(gol.width, gol.height, luafile);
+
     //if(!loadMedia("meme.png", pngSurface))
     //{
    ////     return -1;

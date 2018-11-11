@@ -37,6 +37,7 @@ std::vector<std::array<int,3>> getColors(lua_State* L, const std::string& name) 
     //get table
     lua_getglobal(L, "colors");
     if(lua_isnil(L, -1)) {
+        v.push_back({0,0,0});
         return v;
     }
     //holders for rgb value
@@ -81,6 +82,8 @@ Life::Life(int w, int h)
     width = w; height = h;
     grid.resize(width, std::vector<int>(height, 0));
     updateGrid.resize(width, std::vector<int>(height, 0));
+    stateColors.push_back({0,0,0});
+
 }
 
 Life::Life(int w, int h, char * luapath)
@@ -100,6 +103,7 @@ Life::Life(int w, int h, char * luapath)
     int meep = getIntField(L, "meep");
 
     std::cout << "Loaded: " << name << " " << meep << "\n";
+    
     stateColors = getColors(L, "colors");
 
 }
@@ -114,7 +118,9 @@ void Life::clear()
 
 void Life::iterate()
 {
-    
+    if(L == nullptr)
+        return;
+
     lua_getglobal(L, "iterate");    //call lua function
     
     lua_newtable(L);

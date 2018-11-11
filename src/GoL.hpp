@@ -61,7 +61,7 @@ private:
     
     Uint32 frameStart;
     int frameTime;
-    Life gol = Life(67, 35, "/home/richard/Documents/prog/C++/GoL/GoL-SDL/life.lua");
+    Life gol = Life(67, 35);
 
     int CELL_HEIGHT = 20;
     int CELL_WIDTH = 20;
@@ -99,19 +99,20 @@ private:
 
 
     bool isDrawing;
-    bool drawType;
+    int drawType;
     int currentDrawX, currentDrawY;
     void handleMouseDown(SDL_Event e);
     void handleMouseMove(SDL_Event e);
     void handleMouseUp(SDL_Event e);
     void clearGrid();
+    void setBrush(char code);
     
 
     
 public:
     CApp();
     
-    int OnExecute();
+    int OnExecute(char* luafile);
     
     
     

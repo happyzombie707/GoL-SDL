@@ -35,9 +35,7 @@ void CApp::handleMouseDown(SDL_Event e)
     currentDrawX = (x + viewport.x) / CELL_WIDTH;
     currentDrawY = (y + viewport.y) / CELL_HEIGHT;
     
-    drawType = e.button.button == SDL_BUTTON_LEFT ? true : false;
-    printf("%d\n", drawType);
-    gol.grid[currentDrawX][currentDrawY] = drawType;
+    gol.grid[currentDrawX][currentDrawY] = e.button.button == SDL_BUTTON_LEFT ? drawType : 0;
 
     mouseMode = MOUSEMODE_DRAW;
     
@@ -77,7 +75,7 @@ void CApp::handleMouseMove(SDL_Event e)
         
         if(currentDrawX != gX || currentDrawY != gY)
         {
-            gol.grid[gX][gY] = drawType;
+            gol.grid[gX][gY] = e.button.button == SDL_BUTTON_LEFT ? drawType : 0;
             currentDrawX = gX;
             currentDrawY = gY;
             onRender();
@@ -99,6 +97,10 @@ void CApp::clearGrid()
     onRender();
 }
 
+void CApp::setBrush(char v)
+{
+    drawType = v - 48;
+}
 
 void CApp::onEvent()
 {
@@ -118,6 +120,8 @@ void CApp::onEvent()
                 tickLength -= 50;
             if(e.key.keysym.sym == SDLK_MINUS)
                 tickLength += 50;
+            if(e.key.keysym.sym >= '0' && e.key.keysym.sym <= '9')
+                setBrush(e.key.keysym.sym);
             break;
         case SDL_MOUSEBUTTONDOWN:
             handleMouseDown(e);

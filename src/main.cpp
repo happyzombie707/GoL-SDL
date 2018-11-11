@@ -12,9 +12,15 @@ and may not be redistributed without written permission.*/
 int main( int argc, char* args[] )
 {
 
-   CApp app;
-    
-    return app.OnExecute();
+    if(argc != 2)
+    {
+        printf("Invalid number of args, must specify lua file.\n");
+        printf("Usage: ./GoL life.lua\n");
+        return 1;
+    }
+
+    CApp app;
+    return app.OnExecute(args[1]);
 	
 }
 
