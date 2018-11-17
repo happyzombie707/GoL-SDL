@@ -2,15 +2,11 @@
 #ifndef UI_hpp
 #define UI_hpp
 
-/*
+#include "Control.hpp"
+
+
 class UI;
 class Control;
-
-static SDL_Texture* uiTexture;
-static SDL_Surface* uiSurf;
-
-
-
 
 
 class UI
@@ -50,6 +46,5 @@ public:
 
 
 
-*/
 #endif /* UI_hpp */
 

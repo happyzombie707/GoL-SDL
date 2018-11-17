@@ -4,10 +4,10 @@ version = 1           --global version field(required)
 
 
 colors = {              --global colour table (required)
-    {0,0,0},            --0: empty - black
-    {0, 128, 255},      --1: electron head - blue
-    {255, 64, 0},       --2: electron tail - red
-    {255,215,0},        --3: conductor - yellow
+    {17,17,17},            --0: empty - black
+    {73, 208, 239},      --1: electron head - blue
+    {239, 73, 73},       --2: electron tail - red
+    {239,185,73},        --3: conductor - yellow
 }
 
 width = 0

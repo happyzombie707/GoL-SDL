@@ -9,9 +9,8 @@
 #ifndef Control_hpp
 #define Control_hpp
 
-#include <stdio.h>
 #include <vector>
-#include "CApp.hpp"
+
 
 class Control
 {

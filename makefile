@@ -1,6 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = src/main.cpp src/GoL.hpp src/GoL.cpp src/Init.cpp src/Loop.cpp src/Render.cpp src/Event.cpp src/Cleanup.cpp src/Life.hpp src/Life.cpp
-
+OBJS = src/main.cpp src/GoL.hpp src/GoL.cpp src/Init.cpp src/Loop.cpp src/Render.cpp src/Event.cpp src/Cleanup.cpp src/Life.hpp src/Life.cpp #src/UI/Control.hpp src/UI/Control.cpp src/UI/UI.hpp src/UI/UI.cpp
 #CC specifies which compiler we're using
 CC = g++
 
