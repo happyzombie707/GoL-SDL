@@ -8,5 +8,14 @@ The Lua file must contain:
  
  See life.lua for an example
 
+
 ### Building
-Requires SDL2, SDL2_Image and liblua, build with make all
+Requires SDL2, SDL2_Image and liblua, build with `make all`.
+
+
+### Running
+Run with `./GoL.out <automaton.lua>`
+
+### Bugs, things to do
+ * Renderer is just all around really dodgy, needs to be redone, hopefully using OpenGL (for 2D and potentially 3D CAs).
+ * UI stuff (started, far from finished).
