@@ -4,7 +4,7 @@ Run cellular automata defined in a lua file.
 
 The Lua file must contain: 
  * Global variables containing the `name` of the cellular automata, the `version` and a table of `colors` for the states.
- * Function named iterate that takes one parameter (current state of the grid)
+ * Function named iterate that takes one parameter (current state of the grid) and returns the new state of the grid.
  
  See life.lua for an example
 
